@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Look! A message</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    .message-container {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div class="message-container">
+    <h1>Your friend made a Gift code for you!</h1>
+    <h2>They even left a message below!</h2>
+    <div id="friend_code"></div>
+    <div id="message"></div>
+    <h2>It appears your friend wants you to download Pearl. Let's get Pearl!</h2>
+    <button class="button" onclick="downloadPearl()">Download Pearl</button>
+</div>
+
+<script>
+function downloadPearl() {
+    window.location.href = 'https://github.com/PearlBrowser/Pearl/releases/latest';
+}
+
+
+    // Get the friend_code parameter from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const friendCode = urlParams.get('friend_code');
+
+    // Get the message parameter from the URL
+    const message = urlParams.get('message');
+
+    // If the friend_code parameter exists
+    if (friendCode) {
+        // Check if the friend_code contains spaces
+        if (friendCode.includes(' ')) {
+            // Display alert if spaces are found
+            alert('Error: Codes may not have spaces. Only messages! Check if your friend sent the correct code. For now, we will display your message with no code.');
+        } else {
+            // Display the friend code
+            document.getElementById('friend_code').innerText = 'Friend Code: ' + friendCode;
+        }
+    }
+
+    // If the message parameter exists
+    if (message) {
+        // Replace %20 with spaces
+        const decodedMessage = message.replace(/%20/g, ' ');
+        // Display the message
+        document.getElementById('message').innerText = 'Message: ' + decodedMessage;
+    }
+</script>
+</body>
+</html>
